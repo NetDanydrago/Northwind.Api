@@ -1,0 +1,16 @@
+global using Authentication.Dtos;
+global using Authentication.Dtos.ValueObjects;
+global using Authentication.Interfaces;
+global using Authentication.Internals;
+global using Authentication.Resources;
+global using DomainTransaction;
+global using DomainTransaction.Interfaces;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;
+global using Authentication.Internals.Controllers;
+global using Authentication.Internals.InputPorts;

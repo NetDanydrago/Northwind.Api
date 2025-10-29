@@ -1,0 +1,11 @@
+global using Category.Dtos;
+global using Category.Dtos.ValueObjects;
+global using Category.Interfaces;
+global using Category.Internals;
+global using Category.Resources;
+global using DomainTransaction;
+global using DomainTransaction.Interfaces;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using Category.Internals.Controllers;
+global using Category.Internals.InputPorts;
