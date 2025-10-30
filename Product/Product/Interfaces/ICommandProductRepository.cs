@@ -5,4 +5,6 @@ namespace Product.Interfaces;
 public interface ICommandProductRepository : ITransactionHandler
 {
     Task<int> CreateProductAsync(CreateProductDto createProduct);
+    Task SaveChangesAsync();
+
 }
