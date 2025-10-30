@@ -3,7 +3,7 @@ using Category.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NorthWind.EFCore.Repositories.DbContexts;
 
-namespace NorthWind.EFCore.Repositories.Repositories;
+namespace NorthWind.EFCore.Repositories.Repositories.Categories;
 internal class CommandCategoryRepository(CommandDbContext context) : TransactionHandlerBase(context.Database), ICommandCategoryRepository
 {
     public async Task<CategoryDto> CreateAsync(CreateCategoryDto createCategoryDto)

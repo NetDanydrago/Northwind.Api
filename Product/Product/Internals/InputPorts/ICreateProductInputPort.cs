@@ -3,5 +3,5 @@
 namespace Product.Internals.InputPorts;
 internal interface ICreateProductInputPort
 {
-    Task<ProductDto> CreateProductAsync(CreateProductDto createProductDto);
+    Task CreateProductAsync(CreateProductDto createProductDto);
 }

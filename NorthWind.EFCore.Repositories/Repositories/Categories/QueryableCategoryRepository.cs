@@ -3,7 +3,7 @@ using Category.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NorthWind.EFCore.Repositories.DbContexts;
 
-namespace NorthWind.EFCore.Repositories.Repositories;
+namespace NorthWind.EFCore.Repositories.Repositories.Categories;
 internal class QueryableCategoryRepository(QueryDbContext context) : IQueryableCategoryRepository
 {
     public async Task<IEnumerable<CategoryDto>> GetAllActiveAsync()

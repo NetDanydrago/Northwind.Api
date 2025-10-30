@@ -9,4 +9,6 @@ internal class CommandDbContext : DbContext
 
     public DbSet<Entities.Category> Categories { get; set; }
 
+    public DbSet<Entities.Product> Products { get; set; }
+
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NorthWind.EFCore.Repositories.DbContexts;
-using NorthWind.EFCore.Repositories.Repositories;
+using NorthWind.EFCore.Repositories.Repositories.Categories;
 
 namespace NorthWind.EFCore.Repositories;
 public static class DependencyContainer

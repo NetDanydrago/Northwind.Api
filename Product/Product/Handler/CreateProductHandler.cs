@@ -1,11 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using DomainTransaction;
+﻿using DomainTransaction;
 using Microsoft.Extensions.Logging;
-using Product.Dtos;                         
-using Product.Interfaces;                   
-using Product.Internals.InputPorts;         
+using Product.Dtos;
+using Product.Interfaces;
+using Product.Internals.InputPorts;
 
 namespace Product.Handler
 {
@@ -15,7 +12,7 @@ namespace Product.Handler
         ILogger<CreateProductHandler> logger
     ) : ICreateProductInputPort
     {
-        public async Task<ProductDto> ICreateProductInputPort.CreateProductAsync(CreateProductDto createProductDto)
+        public async Task CreateProductAsync(CreateProductDto createProductDto)
         {
             try
             {
@@ -26,19 +23,14 @@ namespace Product.Handler
                 {
                     throw new Exception("Product name already exists.");
                 }
-
                 await using var scope = new DomainTransactionScope();
                 await scope.EnlistAsync(productRepository);
-
-                var newProduct = await productRepository.CreateProductAsync(createProductDto);
+                int productId = await productRepository.CreateProductAsync(createProductDto);
                 await productRepository.SaveChangesAsync();
 
                 scope.Complete();
 
-                logger.LogInformation("Successfully created product: {Name}",
-                    createProductDto.Name);
-
-                return newProduct;
+                logger.LogInformation("Successfully created product: {productId}", productId);
             }
             catch (Exception ex)
             {
