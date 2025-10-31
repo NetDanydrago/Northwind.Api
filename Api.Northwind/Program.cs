@@ -1,6 +1,8 @@
 using Api.Northwind.Middleware;
 using Category;
 using Category.Rest.Mappings;
+using Product;
+using Product.Rest.Mappings;
 using NorthWind.EFCore.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddNorthWIndRepositoriesSqlLite();
 builder.Services.AddCategoryCore();
+builder.Services.AddProductCore(); 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
@@ -17,13 +20,12 @@ builder.Services.AddCors(options =>
                           .AllowAnyHeader());
 });
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
+app.UseProductEndpoints();
 app.UseCategoryEndpoints();
 app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();

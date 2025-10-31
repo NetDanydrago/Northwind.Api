@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NorthWind.EFCore.Repositories.DbContexts;
 using NorthWind.EFCore.Repositories.Repositories.Categories;
+using NorthWind.EFCore.Repositories.Repositories.Products;
+using Product.Interfaces;
 
 namespace NorthWind.EFCore.Repositories;
 public static class DependencyContainer
@@ -27,6 +29,8 @@ public static class DependencyContainer
         services.AddScoped<ICommandCategoryRepository, CommandCategoryRepository>();
         services.AddScoped<IQueryableCategoryRepository, QueryableCategoryRepository>();
 
+        services.AddScoped<ICommandProductRepository, CommandProductRepository>();
+        services.AddScoped<IQueryableProductRepository, QueryableProductRepository>();
         return services;
 
     }

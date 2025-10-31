@@ -14,4 +14,11 @@
     <ProjectReference Include="..\..\Common\DomainTransaction\DomainTransaction.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Product.UnitTest" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    <InternalsVisibleTo Include="Product.Rest.Mappings" />
+    <InternalsVisibleTo Include="Api.Northwind" />
+  </ItemGroup>
+
 </Project>
