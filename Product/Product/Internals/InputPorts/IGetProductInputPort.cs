@@ -9,6 +9,6 @@ namespace Product.Internals.InputPorts;
 
 internal interface IGetProductInputPort
 {
-    Task<ProductDto> GetByIdAsync(int id);
-    Task<IEnumerable<ProductDto>> GetAllActiveAsync();
+    Task<ProductDto> GetProductByIdAsync(int id);
+    Task<IEnumerable<ProductDto>> GetAllProductsAsync();
 }
