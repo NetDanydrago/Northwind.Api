@@ -9,5 +9,5 @@ namespace Product.Internals.InputPorts;
 
 internal interface IUpdateCategoryInputPort
 {
-    Task<ProductDto> UpdateProductAsync(UpdateProductDto updateProductDto);
+    Task UpdateProductAsync(UpdateProductDto updateProductDto);
 }
