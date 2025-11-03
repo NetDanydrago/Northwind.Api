@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Category\Category.Rest.Mappings\Category.Rest.Mappings.csproj" />
-    <ProjectReference Include="..\ClassLibrary2\Product.Rest.Mappings.csproj" />
     <ProjectReference Include="..\NorthWind.EFCore.Repositories\NorthWind.EFCore.Repositories.csproj" />
+    <ProjectReference Include="..\Product\Product.Rest.Mappings\Product.Rest.Mappings.csproj" />
     <ProjectReference Include="..\Product\Product\Product.csproj" />
   </ItemGroup>
 </Project>
