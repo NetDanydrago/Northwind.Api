@@ -19,7 +19,7 @@ public static class EndpointMapper
         })
         .Produces<HandlerRequestResult<ProductDto>>();
 
-        builder.MapGet("api/products", async (IGetProductController controller) =>
+        builder.MapGet("api/products", async (IGetAllProductsController controller) =>
         {
             return TypedResults.Ok(await controller.GetAllProductActiveAsync());
         }).Produces<HandlerRequestResult<IEnumerable<ProductDto>>>();

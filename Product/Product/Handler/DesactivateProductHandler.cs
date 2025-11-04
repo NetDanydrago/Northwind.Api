@@ -1,5 +1,7 @@
 ﻿using DomainTransaction;
 using Microsoft.Extensions.Logging;
+using DomainTransaction;
+using Microsoft.Extensions.Logging;
 using Product.Dtos;
 using Product.Interfaces;
 using Product.Internals.InputPorts;
@@ -18,9 +20,9 @@ internal class DesactivateProductHandler(
 {
     public async Task DesactivateAsync(DesactivateProductDto desactivateProductDto)
     {
-		try
-		{
-			logger.LogInformation("Attempting to deactivate product: {Id}", desactivateProductDto.Id);
+        try
+        {
+            logger.LogInformation("Attempting to deactivate product: {Id}", desactivateProductDto.Id);
 
             var existingProduct = await queryableProduct.GetByIdAsync(desactivateProductDto.Id);
             if (existingProduct == null)
@@ -44,3 +46,4 @@ internal class DesactivateProductHandler(
             throw;
         }
     }
+}

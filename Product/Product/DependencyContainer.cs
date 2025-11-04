@@ -18,12 +18,14 @@ public static class DependencyContainer
         // Register handlers
         services.AddScoped<ICreateProductInputPort, CreateProductHandler>();
         services.AddScoped<IGetProductInputPort, GetProductHandler>();
+        services.AddScoped<IGetAllProductsInputPort, GetAllProductHandler>();
         services.AddScoped<IUpdateProductInputPort, UpdateProductHandler>();
         services.AddScoped<IDesactivateProductInputPort, DesactivateProductHandler>();
-
+        
         // Register controllers
         services.AddScoped<ICreateProductController, CreateProductController>();
         services.AddScoped<IGetProductController, GetProductController>();
+        services.AddScoped<IGetAllProductsController, GetAllProductsController>();
         services.AddScoped<IUpdateProductController, UpdateProductController>();
         services.AddScoped<IDesactiveProductController, DesactivateProductController>();
         return services;

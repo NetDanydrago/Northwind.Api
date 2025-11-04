@@ -11,21 +11,6 @@ using System.Threading.Tasks;
 namespace Product.Controller;
 internal class GetProductController(IGetProductInputPort inputPort) : IGetProductController
 {
-    public async Task<HandlerRequestResult<IEnumerable<ProductDto>>> GetAllProductActiveAsync()
-    {
-        HandlerRequestResult<IEnumerable<ProductDto>> result = default;
-        try
-        {
-            var productsResult = await inputPort.GetAllProductsAsync();
-            result = new HandlerRequestResult<IEnumerable<ProductDto>>(productsResult);
-        }
-        catch (Exception ex)
-        {
-            result = new HandlerRequestResult<IEnumerable<ProductDto>>(ex.Message);
-        }
-        return result;
-    }
-
     public async Task<HandlerRequestResult<ProductDto>> GetProductByIdAsync(int id)
     {
         HandlerRequestResult<ProductDto> result = default;
