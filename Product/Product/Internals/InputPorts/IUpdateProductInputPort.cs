@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Product.Internals.InputPorts;
 
-internal interface IUpdateCategoryInputPort
+internal interface IUpdateProductInputPort
 {
     Task UpdateProductAsync(UpdateProductDto updateProductDto);
 }

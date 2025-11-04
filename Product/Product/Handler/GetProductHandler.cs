@@ -1,0 +1,51 @@
+﻿using Microsoft.Extensions.Logging;
+using Product.Dtos;
+using Product.Interfaces;
+using Product.Internals.InputPorts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Product.Handler;
+
+internal class GetProductHandler(IQueryableProductRepository queryableProductRepository,
+    ILogger<GetProductHandler> logger) : IGetProductInputPort
+{
+    public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
+    {
+        try
+        {
+            logger.LogInformation("Attempting to get all active Products");
+            var products = await queryableProductRepository.GetAllActiveAsync();
+            logger.LogInformation("Successfully retrieved {Count} active categories", products.Count());
+            return products;
+        }
+        catch (Exception ex)
+        {
+            logger.LogInformation(ex, "Error getting all active products");
+            throw;
+        }
+    }
+
+    public async Task<ProductDto> GetProductByIdAsync(int id)
+    {
+        try
+        {
+            logger.LogInformation("Attempting to get product by ID: {Id}", id);
+            var product = await queryableProductRepository.GetByIdAsync(id);
+            if (product == null)
+            {
+                throw new Exception("Product not find");
+            }
+            logger.LogInformation("Successfully retrieved product: {Id}", id);
+            return product;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error getting product by ID: {Id}", id);
+            throw;
+        }
+    }
+}

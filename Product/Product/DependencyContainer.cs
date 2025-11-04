@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Product.Controller;
 using Product.Handler;
 using Product.Interfaces;
 using Product.Internals.Controllers;
@@ -16,10 +17,15 @@ public static class DependencyContainer
     {
         // Register handlers
         services.AddScoped<ICreateProductInputPort, CreateProductHandler>();
+        services.AddScoped<IGetProductInputPort, GetProductHandler>();
+        services.AddScoped<IUpdateProductInputPort, UpdateProductHandler>();
+        services.AddScoped<IDesactivateProductInputPort, DesactivateProductHandler>();
 
         // Register controllers
         services.AddScoped<ICreateProductController, CreateProductController>();
-
+        services.AddScoped<IGetProductController, GetProductController>();
+        services.AddScoped<IUpdateProductController, UpdateProductController>();
+        services.AddScoped<IDesactiveProductController, DesactivateProductController>();
         return services;
     }
 };

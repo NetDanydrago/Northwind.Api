@@ -1,4 +1,6 @@
-﻿using NorthWind.EFCore.Repositories.DbContexts;
+﻿using Category.Dtos;
+using Microsoft.EntityFrameworkCore;
+using NorthWind.EFCore.Repositories.DbContexts;
 using Product.Dtos;
 using Product.Interfaces;
 using System;
@@ -29,9 +31,31 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
             return entity.Entity.Id;
         }
 
+        public async Task DeactivateProductAsync(int id)
+        {
+            var product = await context.Products.FirstOrDefaultAsync(c => c.Id == id);
+            if (product != null)
+            {
+                product.UpdatedAt = DateTime.UtcNow;
+                context.Products.Update(product);
+            }
+        }
+
         public async Task SaveChangesAsync()
         {
             await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateProductAsync(UpdateProductDto upadateProductDto)
+        {
+            var product = await context.Categories.FirstOrDefaultAsync(c => c.Id == upadateProductDto.Id);
+            if (product != null)
+            {
+                product.Name = upadateProductDto.Name;
+                product.Description = upadateProductDto.Description;
+                product.UpdatedAt = DateTime.UtcNow;
+                context.Categories.Update(product);
+            }
         }
     }
 }
