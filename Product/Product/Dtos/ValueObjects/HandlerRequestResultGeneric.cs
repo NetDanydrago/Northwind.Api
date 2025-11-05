@@ -5,6 +5,11 @@ public class HandlerRequestResult<T>
     public string ErrorMessage { get; set; }
     public T SuccessValue { get; set; }
 
+    public HandlerRequestResult()
+    {
+
+    }
+
 
     public HandlerRequestResult(string errorMessage)
     {
