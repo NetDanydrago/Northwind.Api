@@ -25,4 +25,12 @@
 	  <ProjectReference Include="..\Product\Product\Product.csproj" />
 	</ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Product.IntegrationTest" />
+    <InternalsVisibleTo Include="Category.IntegrationTest" />
+    <InternalsVisibleTo Include="Category.UnitTests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
+
 </Project>
