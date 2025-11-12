@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Category\Category\Category.csproj" />
     <ProjectReference Include="..\..\Common\DomainTransaction\DomainTransaction.csproj" />
   </ItemGroup>
 

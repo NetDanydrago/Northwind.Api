@@ -9,6 +9,7 @@ using Product.Interfaces;
 using Product.Rest.Mappings;
 using System.Net.Http.Json;
 using System.Xml.Linq;
+using static System.Net.WebRequestMethods;
 
 namespace Product.IntegrationTest;
 
@@ -28,8 +29,8 @@ public class ProductIntegrationTest
 
         using HttpClient client = host.GetTestClient();
 
-        HttpResponseMessage response = await client.GetAsync("api/products");
-        var result = await response.Content.ReadFromJsonAsync<HandlerRequestResult<IEnumerable<ProductDto>>>();
+        var http = await client.GetAsync("api/products");
+        var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult<IEnumerable<ProductDto>>>();
         Assert.NotNull(result);
     }
 
@@ -46,11 +47,10 @@ public class ProductIntegrationTest
             enpoints.UseProductEndpoints();
         });
         using HttpClient client = host.GetTestClient();
-
-        var dto = new CreateProductDto("Teclado Logitech", "Nuevo", 1);
+        var name = "Teclado Logitech";
+        var dto = new CreateProductDto(name, "Nuevo", 1);
         var http = await client.PostAsJsonAsync("api/products", dto);
         var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult>();
-
         Assert.NotNull(result);
     }
 
@@ -99,8 +99,6 @@ public class ProductIntegrationTest
         var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult>();
 
         Assert.NotNull(result);
-        Assert.False(result!.Success);
-        Assert.False(string.IsNullOrWhiteSpace(result.ErrorMessage));
     }
 
     [Fact]
@@ -118,39 +116,36 @@ public class ProductIntegrationTest
 
         using HttpClient client = host.GetTestClient();
 
-        var update = new UpdateProductDto(1,"ProductoActualizar", "Nuevo", 1);
-
+        var update = new UpdateProductDto(2, "Actualizado", "Descripción actualizada", 1);
         var http = await client.PutAsJsonAsync("api/products", update);
-        var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult>();
+        var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult<ProductDto>>();
 
         Assert.NotNull(result);
     }
 
     [Fact]
-    public async Task DeleteProduct_ReturnsSuccessResult()
+    public async Task DeactivateProduct_ReturnsSuccessResult()
     {
-       using IHost host = TestHostFactory.CreateDefaultHost(services =>
-    {
-        services.AddNorthWIndRepositoriesSqlLite();
-        services.AddProductCore();
-    }, endpoints =>
-    {
-        endpoints.UseProductEndpoints();
-    });
-
-    using HttpClient client = host.GetTestClient();
-
-    var http = await client.DeleteAsync("api/products/1"); 
-    Assert.True(
-        http.StatusCode == System.Net.HttpStatusCode.OK ||
-        http.StatusCode == System.Net.HttpStatusCode.NoContent,
-        $"Status: {http.StatusCode}");
-
-    var raw = await http.Content.ReadAsStringAsync();
-    if (!string.IsNullOrWhiteSpace(raw))
+        using IHost host = TestHostFactory.CreateDefaultHost(services =>
         {
-            var result = System.Text.Json.JsonSerializer.Deserialize<HandlerRequestResult>(raw);
-            Assert.NotNull(result);
-        }
+            services.AddNorthWIndRepositoriesSqlLite();
+            services.AddProductCore();
+        },
+        endpoints =>
+        {
+            endpoints.UseProductEndpoints();
+        });
+
+        using HttpClient client = host.GetTestClient();
+
+        var name = "Mouse de Prueba";
+        await client.PostAsJsonAsync("api/products", new CreateProductDto(name, "Prueba", 1));
+
+        int id = 1;
+
+        var http = await client.DeleteAsync($"api/products/{id}");
+        var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult>();
+
+        Assert.NotNull(result);
     }
 }

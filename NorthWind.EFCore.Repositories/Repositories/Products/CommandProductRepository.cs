@@ -37,6 +37,7 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
             if (product != null)
             {
                 product.UpdatedAt = DateTime.UtcNow;
+                product.IsActive = false;
                 context.Products.Update(product);
             }
         }
