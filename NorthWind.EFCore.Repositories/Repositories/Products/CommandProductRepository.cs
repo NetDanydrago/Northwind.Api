@@ -49,13 +49,13 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
 
         public async Task UpdateProductAsync(UpdateProductDto upadateProductDto)
         {
-            var product = await context.Categories.FirstOrDefaultAsync(c => c.Id == upadateProductDto.Id);
+            var product = await context.Products.FirstOrDefaultAsync(c => c.Id == upadateProductDto.Id);
             if (product != null)
             {
                 product.Name = upadateProductDto.Name;
                 product.Description = upadateProductDto.Description;
                 product.UpdatedAt = DateTime.UtcNow;
-                context.Categories.Update(product);
+                context.Products.Update(product);
             }
         }
     }

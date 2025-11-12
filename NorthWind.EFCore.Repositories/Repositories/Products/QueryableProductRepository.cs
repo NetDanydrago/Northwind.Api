@@ -15,15 +15,16 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
         public async Task<IEnumerable<ProductDto>> GetAllActiveAsync()
         {
             var query =
-                from p in context.Products
-                join c in context.Categories on p.CategoryId equals c.Id
-                where p.IsActive
+                from p in context.Products.AsNoTracking()
+                join c in context.Categories.AsNoTracking() on p.CategoryId equals c.Id into gj
+                from c in gj.DefaultIfEmpty() 
                 select new ProductDto(
                     p.Id,
                     p.Name,
                     p.Description,
                     p.CategoryId,
-                    c.Name
+                    c != null ? c.Name : null,
+                    p.IsActive
                 );
 
             return await query.ToListAsync();
@@ -32,15 +33,17 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
         public async Task<ProductDto?> GetByIdAsync(int id)
         {
             var query =
-                from p in context.Products
-                join c in context.Categories on p.CategoryId equals c.Id
+                from p in context.Products.AsNoTracking()
+                join c in context.Categories.AsNoTracking() on p.CategoryId equals c.Id into gj
+                from c in gj.DefaultIfEmpty()
                 where p.Id == id
                 select new ProductDto(
                     p.Id,
                     p.Name,
                     p.Description,
                     p.CategoryId,
-                    c.Name
+                    c != null ? c.Name : null,
+                    p.IsActive
                 );
 
             return await query.FirstOrDefaultAsync();
@@ -48,16 +51,19 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
 
         public async Task<ProductDto?> GetByNameAsync(string name)
         {
+            var norm = name.Trim();
             var query =
-                from p in context.Products
-                join c in context.Categories on p.CategoryId equals c.Id
-                where p.Name == name
+                from p in context.Products.AsNoTracking()
+                join c in context.Categories.AsNoTracking() on p.CategoryId equals c.Id into gj
+                from c in gj.DefaultIfEmpty()
+                where p.Name == norm // ajusta a case-insensitive si lo necesitas
                 select new ProductDto(
                     p.Id,
                     p.Name,
                     p.Description,
                     p.CategoryId,
-                    c.Name
+                    c != null ? c.Name : null,
+                    p.IsActive
                 );
 
             return await query.FirstOrDefaultAsync();

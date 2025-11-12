@@ -48,7 +48,7 @@ public class CategoryIntegrationTest
 
         using HttpClient client = host.GetTestClient();
 
-        var dto = new CreateCategoryDto("Periféricos", "Teclados y mouse");
+        var dto = new CreateCategoryDto("Video", "Teles");
         var http = await client.PostAsJsonAsync("api/categories", dto);
         var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult<CategoryDto>>();
 
