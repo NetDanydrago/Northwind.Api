@@ -2,6 +2,7 @@
 using Product.Dtos;
 using Product.Interfaces;
 using Product.Internals.InputPorts;
+using Product.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ internal class GetProductHandler(IQueryableProductRepository queryableProductRep
             var product = await queryableProductRepository.GetByIdAsync(id);
             if (product == null)
             {
-                throw new Exception("Product not find");
+                throw new Exception(ProductMessages.ErrorToFindProduct);
             }
             logger.LogInformation("Successfully retrieved product: {Id}", id);
             return product;

@@ -116,7 +116,7 @@ public class ProductIntegrationTest
 
         using HttpClient client = host.GetTestClient();
 
-        var update = new UpdateProductDto(2, "Actualizado", "Descripción actualizada", 1);
+        var update = new UpdateProductDto(1, "Actualizado", "Descripción actualizada", 1);
         var http = await client.PutAsJsonAsync("api/products", update);
         var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult<ProductDto>>();
 
@@ -138,12 +138,7 @@ public class ProductIntegrationTest
 
         using HttpClient client = host.GetTestClient();
 
-        var name = "Mouse de Prueba";
-        await client.PostAsJsonAsync("api/products", new CreateProductDto(name, "Prueba", 1));
-
-        int id = 1;
-
-        var http = await client.DeleteAsync($"api/products/{id}");
+        var http = await client.DeleteAsync($"api/products/1");
         var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult>();
 
         Assert.NotNull(result);
