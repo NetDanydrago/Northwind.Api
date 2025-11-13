@@ -47,7 +47,7 @@ public class ProductIntegrationTest
             enpoints.UseProductEndpoints();
         });
         using HttpClient client = host.GetTestClient();
-        var name = "Teclado Logitech";
+        var name = "Bocinas Logitech";
         var dto = new CreateProductDto(name, "Nuevo", 1);
         var http = await client.PostAsJsonAsync("api/products", dto);
         var result = await http.Content.ReadFromJsonAsync<HandlerRequestResult>();

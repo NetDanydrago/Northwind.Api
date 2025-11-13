@@ -6,5 +6,5 @@ public class ProductDto(int id, string name, string description, int categoryId 
     public string Description => description;
     public int CategoryId => categoryId;
     public string CategoryName => categoryName;
-    public bool IsActive { get; set; } = isActive;
+    public bool IsActive => isActive;
 }

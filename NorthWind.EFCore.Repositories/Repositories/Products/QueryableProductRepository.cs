@@ -15,8 +15,8 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
         public async Task<IEnumerable<ProductDto>> GetAllActiveAsync()
         {
             var query =
-                from p in context.Products.AsNoTracking()
-                join c in context.Categories.AsNoTracking() on p.CategoryId equals c.Id into gj
+                from p in context.Products
+                join c in context.Categories on p.CategoryId equals c.Id into gj
                 from c in gj.DefaultIfEmpty() 
                 select new ProductDto(
                     p.Id,
@@ -33,8 +33,8 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
         public async Task<ProductDto?> GetByIdAsync(int id)
         {
             var query =
-                from p in context.Products.AsNoTracking()
-                join c in context.Categories.AsNoTracking() on p.CategoryId equals c.Id into gj
+                from p in context.Products
+                join c in context.Categories on p.CategoryId equals c.Id into gj
                 from c in gj.DefaultIfEmpty()
                 where p.Id == id
                 select new ProductDto(
@@ -53,10 +53,10 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
         {
             var norm = name.Trim();
             var query =
-                from p in context.Products.AsNoTracking()
-                join c in context.Categories.AsNoTracking() on p.CategoryId equals c.Id into gj
+                from p in context.Products
+                join c in context.Categories on p.CategoryId equals c.Id into gj
                 from c in gj.DefaultIfEmpty()
-                where p.Name == norm // ajusta a case-insensitive si lo necesitas
+                where p.Name == norm
                 select new ProductDto(
                     p.Id,
                     p.Name,

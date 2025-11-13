@@ -1,5 +1,4 @@
-﻿using Category.Interfaces;
-using DomainTransaction;
+﻿using DomainTransaction;
 using Microsoft.Extensions.Logging;
 using Product.Dtos;
 using Product.Interfaces;
@@ -10,7 +9,7 @@ namespace Product.Handler
     internal class CreateProductHandler(
         ICommandProductRepository productRepository,
         IQueryableProductRepository queryProductRepository,
-        IQueryableCategoryRepository queryCategoryRepository,
+        ICategoryReadRepository categoryReadRepository,
         ILogger<CreateProductHandler> logger
     ) : ICreateProductInputPort
     {
@@ -32,17 +31,14 @@ namespace Product.Handler
                 throw new InvalidOperationException($"Ya existe un producto con el nombre '{name}'.");
             }
 
-            var category = await queryCategoryRepository.GetByIdAsync(createProductDto.CategoryId);
-            if (category is null)
+            if (!await categoryReadRepository.CategoryExistAsync(createProductDto.CategoryId))
             {
-                logger.LogWarning("Category not found for product {Name}. CategoryId: {CategoryId}", name, createProductDto.CategoryId);
-                throw new InvalidOperationException($"La categoría '{createProductDto.CategoryId}' no existe.");
+                throw new InvalidOperationException("La categoria no existe");
             }
 
-            if (category is { IsActive: false })
+            if (!await categoryReadRepository.CategoryIsActivateAsync(createProductDto.CategoryId))
             {
-                logger.LogWarning("Inactive category for product {Name}. CategoryId: {CategoryId}", name, createProductDto.CategoryId);
-                throw new InvalidOperationException($"La categoría '{createProductDto.CategoryId}' está inactiva.");
+                throw new InvalidOperationException("La categoria está inactiva");
             }
 
             await using var scope = new DomainTransactionScope();
