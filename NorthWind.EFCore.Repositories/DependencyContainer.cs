@@ -28,7 +28,7 @@ public static class DependencyContainer
 
         services.AddScoped<ICommandCategoryRepository, CommandCategoryRepository>();
         services.AddScoped<IQueryableCategoryRepository, QueryableCategoryRepository>();
-        services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
+        services.AddScoped<IQueryableCategoryReadRepository, QueryableCategoryReadRepository>();
 
         services.AddScoped<ICommandProductRepository, CommandProductRepository>();
         services.AddScoped<IQueryableProductRepository, QueryableProductRepository>();

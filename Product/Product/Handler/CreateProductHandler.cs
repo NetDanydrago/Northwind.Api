@@ -9,7 +9,7 @@ namespace Product.Handler
     internal class CreateProductHandler(
         ICommandProductRepository productRepository,
         IQueryableProductRepository queryProductRepository,
-        ICategoryReadRepository categoryReadRepository,
+        IQueryableCategoryReadRepository categoryReadRepository,
         ILogger<CreateProductHandler> logger
     ) : ICreateProductInputPort
     {
@@ -31,14 +31,17 @@ namespace Product.Handler
                 throw new InvalidOperationException($"Ya existe un producto con el nombre '{name}'.");
             }
 
-            if (!await categoryReadRepository.CategoryExistAsync(createProductDto.CategoryId))
+            CategoryReadDto? category = await categoryReadRepository.GetCategoryAsync(createProductDto.CategoryId);
+            if (category is null)
             {
-                throw new InvalidOperationException("La categoria no existe");
+                logger.LogWarning("Category not found for product");
+                throw new InvalidOperationException("La categoría no existe");
             }
 
-            if (!await categoryReadRepository.CategoryIsActivateAsync(createProductDto.CategoryId))
+            if (!category.IsActive)
             {
-                throw new InvalidOperationException("La categoria está inactiva");
+                logger.LogWarning("Inactive category for product");
+                throw new InvalidOperationException("La categoría esta inactiva.");
             }
 
             await using var scope = new DomainTransactionScope();
