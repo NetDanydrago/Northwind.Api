@@ -54,6 +54,7 @@ namespace NorthWind.EFCore.Repositories.Repositories.Products
             {
                 product.Name = upadateProductDto.Name;
                 product.Description = upadateProductDto.Description;
+                product.CategoryId = upadateProductDto.CategoryId;
                 product.UpdatedAt = DateTime.UtcNow;
                 context.Products.Update(product);
             }

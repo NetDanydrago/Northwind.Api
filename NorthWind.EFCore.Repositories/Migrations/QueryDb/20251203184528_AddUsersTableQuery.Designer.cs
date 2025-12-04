@@ -2,17 +2,20 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NorthWind.EFCore.Repositories.DbContexts;
 
 #nullable disable
 
-namespace NorthWind.EFCore.Repositories.Migrations
+namespace NorthWind.EFCore.Repositories.Migrations.QueryDb
 {
-    [DbContext(typeof(CommandDbContext))]
-    partial class CommandDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(QueryDbContext))]
+    [Migration("20251203184528_AddUsersTableQuery")]
+    partial class AddUsersTableQuery
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.10");

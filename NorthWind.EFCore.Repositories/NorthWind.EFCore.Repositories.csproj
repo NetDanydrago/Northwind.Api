@@ -20,9 +20,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Category\Category\Category.csproj" />
+    <ProjectReference Include="..\Category\Category\Category.csproj" />
 	  <ProjectReference Include="..\Common\DomainTransaction\DomainTransaction.csproj" />
 	  <ProjectReference Include="..\Product\Product\Product.csproj" />
+	  <ProjectReference Include="..\User\User\User.csproj" />
 	</ItemGroup>
 
   <ItemGroup>

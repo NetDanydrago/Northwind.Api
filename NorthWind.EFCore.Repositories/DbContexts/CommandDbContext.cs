@@ -11,4 +11,7 @@ internal class CommandDbContext : DbContext
 
     public DbSet<Entities.Product> Products { get; set; }
 
+    public DbSet<Entities.User> Users { get; set; }
+
+
 }

@@ -12,4 +12,7 @@ internal class QueryDbContext : DbContext
 
     public DbSet<Entities.Product> Products { get; set; }
 
+    public DbSet<Entities.User> Users { get; set; }
+
+
 }

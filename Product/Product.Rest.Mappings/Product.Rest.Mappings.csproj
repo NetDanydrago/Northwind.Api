@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Product\Product.csproj" />
+    <ProjectReference Include="..\..\Common\DomainTransaction\DomainTransaction.csproj" />
   </ItemGroup>
 
 </Project>

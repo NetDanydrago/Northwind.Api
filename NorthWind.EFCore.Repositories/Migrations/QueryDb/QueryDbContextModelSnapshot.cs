@@ -7,10 +7,10 @@ using NorthWind.EFCore.Repositories.DbContexts;
 
 #nullable disable
 
-namespace NorthWind.EFCore.Repositories.Migrations
+namespace NorthWind.EFCore.Repositories.Migrations.QueryDb
 {
-    [DbContext(typeof(CommandDbContext))]
-    partial class CommandDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(QueryDbContext))]
+    partial class QueryDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
