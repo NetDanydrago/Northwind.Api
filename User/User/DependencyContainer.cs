@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using User.Controller;
 using User.Handler;
+using User.Helpers;
 using User.Internals.Controllers;
 using User.Internals.InputPorts;
 

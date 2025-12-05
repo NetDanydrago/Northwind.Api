@@ -9,7 +9,7 @@ using User.Dtos;
 namespace User.Interfaces;
 public interface ICommandUserRepository : ITransactionHandler
 {
-    Task<UserDto> CreateUserAsync(CreateUserDto dto);
+    Task<UserDto> CreateUserAsync(CreateUserDto createUserDto, string passwordHash);
     Task UpdateUserAsync(UpdateUserDto dto);
     Task DeactivateUserAsync(int id);
     Task SaveChangesAsync();
