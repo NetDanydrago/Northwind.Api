@@ -6,12 +6,13 @@ using User.Rest.Mappings;
 using Product;
 using Product.Rest.Mappings;
 using NorthWind.EFCore.Repositories;
+using NorthWind.EFCore.Repositories.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddNorthWIndRepositoriesSqlLite();
+builder.Services.AddNorthWindRepositorySqlServer(sqloptions => builder.Configuration.GetSection(NorthWindDbOptions.SectionKey).Bind(sqloptions));
 
 builder.Services.AddCategoryCore();
 builder.Services.AddProductCore();
@@ -38,6 +39,4 @@ app.UseUserEndpoints();
 app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 app.UseMiddleware<HandlerRequestResultMiddleware>();
-
-app.InitializeSqlLiteDb();
 app.Run();

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NorthWind.EFCore.Repositories.DbContexts;
+using NorthWind.EFCore.Repositories.Options;
 using NorthWind.EFCore.Repositories.Repositories.Categories;
 using NorthWind.EFCore.Repositories.Repositories.Products;
 using NorthWind.EFCore.Repositories.Repositories.Users;
@@ -22,6 +23,20 @@ public static class DependencyContainer
         services.AddNorthWindRepositories(ConfigureOptions);
         return services;
     }
+
+    public static IServiceCollection AddNorthWindRepositorySqlServer(this IServiceCollection services, Action<NorthWindDbOptions> optionsDb)
+    {
+        NorthWindDbOptions Options = new();
+        optionsDb(Options);
+        Action<DbContextOptionsBuilder> ConfigureOptions = options =>
+        {
+            options.UseSqlServer(Options.ConnectionString);
+        };
+        services.AddNorthWindRepositories(ConfigureOptions);
+        return services;
+    }
+
+
 
     public static IServiceCollection AddNorthWindRepositories(this IServiceCollection services, Action<DbContextOptionsBuilder> configureOptions)
     {
